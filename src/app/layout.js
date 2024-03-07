@@ -4,7 +4,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { ThemeProvider } from "@/context/ThemeProvider";
+import { ThemeContextProvider } from "@/context/ThemeContext";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -16,20 +17,20 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ThemeProvider>
+        <ThemeContextProvider>
           <ToastContainer />
           <div>
-            <div className=" w-screen sticky top-0 z-50 bg-blue-400 text-black ">
+            <div className=" w-screen sticky top-0 z-50 bg-slate-200 text-black ">
               <Navbar />
             </div>
             <div className="flex flex-col bg-white text-black w-[100vw] min-h-[500px] overflow-x-hidden items-center ">
               {children}
             </div>
           </div>
-          <div className=" w-screen bg-black text-white ">
+          <div className=" w-screen bg-slate-200 text-black ">
             <Footer />
           </div>
-        </ThemeProvider>
+        </ThemeContextProvider>
       </body>
     </html>
   );

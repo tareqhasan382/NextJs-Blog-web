@@ -8,7 +8,14 @@ export const useTheme = () => {
   return useContext(ThemeContext);
 };
 
-export const ThemeProvider = ({ children }) => {
+// const getFromLocalStorage = () => {
+//   if (typeof window !== undefined) {
+//     const value = localStorage.getItem("theme");
+//     return value || "light";
+//   }
+// };
+
+export const ThemeContextProvider = ({ children }) => {
   const [darkMode, setDarkMode] = useState(false);
 
   const toggleTheme = () => {

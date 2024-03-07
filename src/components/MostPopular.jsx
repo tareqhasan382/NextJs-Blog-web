@@ -6,12 +6,12 @@ const MostPopular = () => {
               <button className=" bg-red-800 text-white px-3 py-1 rounded-2xl ">
                 Travel
               </button>
-              <h1 className=" font-semibold lg:text-xl text-sm ">
+              <h3 className=" font-medium lg:text-base text-sm ">
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                Tempore, necessitatibus.
-              </h1>
+                
+              </h3>
               <p>
-                <span className=" lg:font-semibold font-medium ">Josep Owen -</span>10.08.2023
+                <span className="  font-medium ">Josep Owen -</span>10.08.2023
               </p>
             </div>
   );

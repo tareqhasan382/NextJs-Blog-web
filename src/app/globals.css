@@ -36,3 +36,15 @@ body{
     padding-left: 80px;
     padding-right: 80px;
 }
+.dark{
+    background-color: #121212;
+}
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+.mainBox{
+    margin-top: 70px;
+}

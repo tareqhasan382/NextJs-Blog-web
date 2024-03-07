@@ -1,4 +1,5 @@
 import Categorie from "@/components/Categorie";
+import DiscoverTopic from "@/components/DiscoverTopic";
 import MostPopular from "@/components/MostPopular";
 import RecentPost from "@/components/RecentPost";
 import Image from "next/image";
@@ -6,7 +7,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="text-black px-5 max-w-[1280px] h-auto mx-auto py-10 gap-5 overflow-x-hidden ">
+    <div className=" px-5 max-w-[1280px] h-auto mx-auto py-10 gap-5 overflow-x-hidden ">
       <div className=" ">
         <h1 className=" lg:text-7xl text-2xl ">
           <span className=" font-bold ">Hey,Blog here! </span>
@@ -40,7 +41,7 @@ export default function Home() {
             commodi eaque mollitia! Earum animi ratione sapiente magni tempora
             hic cupiditate quam.
           </p>
-          <button className=" px-3 py-2 font-medium bg-gray-200 hover:bg-gray-400 duration-200 rounded mt-8 ">
+          <button className=" px-3 py-2 text-black font-medium bg-gray-200 hover:bg-gray-400 duration-200 rounded mt-8 ">
             Read More
           </button>
         </div>
@@ -75,8 +76,18 @@ export default function Home() {
             <MostPopular />
             <MostPopular />
             <MostPopular />
+            <DiscoverTopic />
           </div>
         </div>
+      </div>
+      {/* ============pagination========= */}
+      <div className=" flex justify-between my-4 ">
+        <button className=" w-24 h-10 bg-red-800 hover:bg-red-600 text-white ">
+          Previous
+        </button>
+        <button className=" w-24 h-10 bg-red-800 hover:bg-red-600 text-white ">
+          Next
+        </button>
       </div>
     </div>
   );

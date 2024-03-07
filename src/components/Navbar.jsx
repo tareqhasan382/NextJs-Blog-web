@@ -22,7 +22,7 @@ const Navbar = () => {
     <div className="flex items-center justify-between w-full py-4 relative">
       <div className="flex items-center justify-center md:space-x-10 lg:space-x-20 ">
         <div className="font-semibold text-2xl">
-          <Link href="/" className=" text-blue-950 text-xl font-bold ">
+          <Link href="/" className="text-2xl font-bold ">
           Blog
           </Link>
         </div>
