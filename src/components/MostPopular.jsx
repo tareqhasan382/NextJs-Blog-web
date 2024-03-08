@@ -1,10 +1,11 @@
 import React from 'react';
 
-const MostPopular = () => {
+const MostPopular = ({title,bg}) => {
+
   return (
     <div className=" space-y-2 ">
-              <button className=" bg-red-800 text-white px-3 py-1 rounded-2xl ">
-                Travel
+              <button className={`${bg? bg :" bg-red-500 text-white px-3 py-1 rounded-2xl"} " text-white px-3 py-1 rounded-2xl " `}>
+                {title ? title : "Travel"}
               </button>
               <h3 className=" font-medium lg:text-base text-sm ">
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit.

@@ -41,25 +41,27 @@ export default function Home() {
             commodi eaque mollitia! Earum animi ratione sapiente magni tempora
             hic cupiditate quam.
           </p>
-          <button className=" px-3 py-2 text-black font-medium bg-gray-200 hover:bg-gray-400 duration-200 rounded mt-8 ">
-            Read More
-          </button>
+          <Link href="/details">
+            <button className=" px-3 py-2 text-black font-medium bg-gray-200 hover:bg-gray-400 duration-200 rounded mt-8 ">
+              Read More
+            </button>
+          </Link>
         </div>
       </div>
       {/* ============categories========= */}
       <div>
         <h1 className=" font-bold lg:text-2xl text-xl ">Popular Categories</h1>
         <div className=" flex flex-wrap gap-4 my-6 ">
+          <Categorie title="Coding" bg="bg-blue-400" />
           <Categorie />
+          <Categorie title="Calture" bg="bg-orange-400" />
           <Categorie />
-          <Categorie />
-          <Categorie />
-          <Categorie />
+          <Categorie title="Fashion" bg="bg-purple-800" />
           <Categorie />
         </div>
       </div>
       {/* ============Recent Posts========= */}
-      <div className=" flex lg:flex-row flex-col gap-5 ">
+      <div className=" flex lg:flex-row flex-col gap-5  ">
         {/* ============Recent Posts Left========= */}
         <div className=" flex flex-col lg:w-3/4 gap-3 ">
           <h1 className=" font-bold lg:text-2xl text-xl ">Recent Posts</h1>
