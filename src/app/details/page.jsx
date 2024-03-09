@@ -1,4 +1,6 @@
 import Comment from "@/components/Comment";
+import DiscoverTopic from "@/components/DiscoverTopic";
+import Editors from "@/components/Editors";
 import MostPopular from "@/components/MostPopular";
 import Image from "next/image";
 import React from "react";
@@ -63,6 +65,12 @@ const page = () => {
               praesentium libero voluptatem repellendus quibusdam explicabo
               itaque nobis aut alias est cupiditate inventore odio.
             </p>
+            {/* ===========Comment========= */}
+        <div className=" w-full my-5 ">
+            <h1 className="lg:text-4xl text-xl font-bold">Comments</h1>
+           <Comment/>
+           
+        </div>
           </div>
           {/* ============Recent Posts Right========= */}
           <div className="lg:w-1/4 ">
@@ -73,15 +81,13 @@ const page = () => {
               <MostPopular />
               <MostPopular title="Coding" bg="bg-blue-400" />
              
-              {/* <DiscoverTopic /> */}
+              {/* <Discover By Topic /> */}
+              <DiscoverTopic/>
+              <Editors/>
             </div>
           </div>
         </div>
-        {/* ===========Comment========= */}
-        <div className=" w-full ">
-            <h1 className="lg:text-4xl text-xl font-bold">Comments</h1>
-           <Comment/>
-        </div>
+        
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 "use client"
+import Image from "next/image";
 import React, { useState } from "react";
 
 const Comment = () => {
@@ -24,7 +25,7 @@ const Comment = () => {
           value={comment}
         onChange={handleChange}
           placeholder=" Write a comment..."
-          className=" lg:w-[80%] w-full p-2 border-gray-300 border-[1px] rounded-lg mb-4 outline-none focus:border-gray-600 text-black "
+          className="lg:w-[90%] w-full p-2 border-gray-300 border-[1px] rounded-lg mb-4 outline-none focus:border-gray-600 text-black "
         />
         <button
           type="submit"
@@ -33,6 +34,22 @@ const Comment = () => {
           Submit
         </button>
       </form>
+      <div>
+          <div className=" flex flex-row gap-5 items-center my-4 ">
+          <Image
+              src="https://images.pexels.com/photos/20258514/pexels-photo-20258514/free-photo-of-feeding-the-serelepe.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+              alt="Image"
+              width={40}
+              height={40}
+              className=" object-cover lg:h-[40px]  h-[40px] rounded-full "
+            />
+            <div>
+              <h3 className=" font-semibold ">Name</h3>
+              <p>22.03.2023</p>
+            </div>
+          </div>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+           </div>
     </div>
   );
 };
