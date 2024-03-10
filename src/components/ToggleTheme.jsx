@@ -4,7 +4,7 @@ import { useTheme } from "@/context/ThemeContext";
 
 const ToggleTheme = () => {
     const { darkMode, toggleTheme } = useTheme();
-    console.log("darkMode:",darkMode)
+  //  console.log("darkMode:",darkMode)
   return (
     <div className=' md:px-2 '>
         <label htmlFor="theme-toggle" className="flex items-center cursor-pointer">

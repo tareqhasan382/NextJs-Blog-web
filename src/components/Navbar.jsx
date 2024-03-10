@@ -49,6 +49,11 @@ const Navbar = () => {
               Login
               </Link>
             </li>
+            <li>
+              <Link href="/write" className={` hover:bg-[#eef2f6f0] hover:text-blue-500 rounded-full py-2 px-3 inline-block w-full`}>
+              Write
+              </Link>
+            </li>
           </ul>
           
         </nav>
@@ -127,7 +132,13 @@ const Navbar = () => {
            
         </li>
         <li onClick={() => setIsHovered4(!isHovered4)} className="" >
-            <Link href="/login" className={`${isHovered4 && " text-blue-500  rounded-full"} py-1 inline-block w-full`}>
+            <Link href="/write" className={`${isHovered4 && " text-blue-500  rounded-full"} py-1 inline-block w-full`}>
+                <span className={` flex flex-row gap-1 font-semibold `}>Write</span> 
+            </Link>
+           
+        </li>
+        <li  >
+            <Link href="/login" className="py-1 inline-block w-full">
                 <span className={` flex flex-row gap-1 font-semibold `}>Login</span> 
             </Link>
            
