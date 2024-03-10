@@ -5,10 +5,12 @@ import StarterKit from '@tiptap/starter-kit'
 import Toolbar from './Toolbar'
 import Underline from '@tiptap/extension-underline'
 const Tiptap = ({ content,onChange}) => {
+
   const handleChange=(newContent)=>{
     onChange(newContent)
   }
   const editor = useEditor({
+    content:`<p>Write a story...</p>`, 
     extensions: [StarterKit,Underline],
     editorProps:{
       attributes:{
@@ -25,7 +27,8 @@ const Tiptap = ({ content,onChange}) => {
   return (
    <div className=' w-full px-4 '>
     <Toolbar editor={editor} content={content}  />
-    <EditorContent editor={editor} placeholder='Write your Story...' />
+    <EditorContent editor={editor} content={content} />
+
    </div>
   )
 }

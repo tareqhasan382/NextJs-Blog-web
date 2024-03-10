@@ -7,55 +7,97 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form"
 import TipTap from "./TipTap";
+import { useSession } from 'next-auth/react';
+import axios from "axios";
 const Write = () => {
   const router = useRouter()
+  const {data:session}= useSession()
+ 
+  // console.log("session:",session?.user)
+
   const [loading,setLoading]=useState(false)
   const [imageError,setImageError]=useState(false)
+  const [titleError,setTitleError]=useState(false)
+  const [contentError,setContentError]=useState(false)
   const [open,setOpen]=useState(false)
   const [selectImage, setSelectImage] = useState(null);
+  const [title,setTitle]=useState("")
   const [content,setContent]=useState("")
+  const [image, setImage] = useState(null);
 const handleImageUpload = async (event) => {
   const file = event.target.files[0];
   if (!file) return;
   setImageError(false)
   setSelectImage(file)
-  const inputfile = new FormData();
-console.log("Image:",inputfile)
+//   const formData  = new FormData();
+
+//  formData.append("file", formData);
+//  formData.append("upload_preset", "Reservation");
+//       const uploadResponse = await axios.post(
+//         "https://api.cloudinary.com/v1_1/dsybkyula/image/upload",
+//         formData
+//       );
+//       const uploadedImageData = await uploadResponse.json();
+//       const imageUrl = uploadedImageData.secure_url;
+//       setImage(imageUrl);
+//       console.log("imageUrl:", imageUrl);
+    
 }
 const handleContentChance=(value)=>{
   setContent(value)
 }
-const {
-  register,
-  handleSubmit,
-  formState: { errors },
-} = useForm()
 
-const onSubmit = async(data) => {
-if(selectImage ===null){
-  setImageError(true)
-  return 
+const handleTitle=(e)=>{
+  const value = e.target.value;
+  setTitle(value);
+  // Validate the input value
+  if (value.trim() === '') {
+    setTitleError(true)
+  }
 }
+const handleSubmit = async(event) => {
+  event.preventDefault()
+  if(title.trim()===""){
+    setTitleError(true)
+    return
+  }else {
+    setTitleError(false)
+  }
+  if(content.trim()===""){
+    setContentError(true)
+    return
+  }else{
+    setContentError(false)
+  }
+  if(selectImage ===null){
+    setImageError(true)
+  }
+const data ={
+  userId:session?.user?._id,
+title:title,
+content:content,
+// image:image
+}
+
   console.log("data:",data)
-  console.log("selectImage:",selectImage)
 }
-console.log("content:",content)
 
   return (
     <div className="lg:px-5 px-1 max-w-[1280px] mx-auto py-10 gap-5 overflow-x-hidden">
       {/* ===========header========= */}
       <h1 className=" text-center text-2xl font-bold my-4 ">Write blog</h1>
       <div>
-        <form onSubmit={handleSubmit(onSubmit)} className=" flex flex-col ">
+        <form onSubmit={handleSubmit} className=" flex flex-col ">
         <input
           className="lg:w-[1250px] w-full p-2 lg:text-4xl text-lg border-gray-300 border-b-[1px] outline-none focus:border-gray-600 text-black "
           type="text"
           id="title"
           name="title"
+          value={title}
           placeholder="Title" 
-          {...register("title", { required: true })}
+        onChange={handleTitle}
         />
-        {errors.title && <span className="text-sm text-red-500 ">This field is required</span>}
+        {titleError && <span className="text-sm text-red-500 ">Title field is required</span>}
         
         {/* <textarea
           className="lg:w-[1250px] w-full h-44 p-2 text-lg border-gray-300 border-b-[1px] outline-none focus:border-gray-600 text-black "
@@ -67,12 +109,17 @@ console.log("content:",content)
          
         />
         {errors.text && <span className="text-sm text-red-500 ">This field is required</span>} */}
+        <div className=" my-2 ">
+       
         <TipTap 
         content={content}
         onChange={(newContent)=>handleContentChance(newContent)}
          />
+          {contentError && <span className="text-sm text-red-500 ">Story is required</span>}
+        </div>
         <button type="submit" className=" w-36 py-3 bg-blue-500 text-white font-semibold rounded-md my-3 ">Submit</button>
         </form>
+        <div>Title:{title&& title}</div>
         <div
                 className="ProseMirror whitespace-pre-line  px-6 py-4"
                 style={{ whiteSpace: "pre-line" }}

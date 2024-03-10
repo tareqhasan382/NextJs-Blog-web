@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react";
-// import { BiSolidUpArrow } from "react-icons/bi";
+import { signOut } from 'next-auth/react';
 import { CiMenuBurger } from "react-icons/ci";
 import { AiOutlineClose } from "react-icons/ai";
 import { IoIosArrowDown } from "react-icons/io";
@@ -9,7 +9,10 @@ import { FaFacebookSquare ,FaLinkedin } from "react-icons/fa";
 import { FaSquareXTwitter,FaSquareInstagram } from "react-icons/fa6";
 import Link from "next/link";
 import ToggleTheme from "./ToggleTheme";
+import { useSession } from "next-auth/react";
 const Navbar = () => {
+  const {data:session}= useSession()
+ 
   const [showProfile, setShowProfile] = useState(false);
   const [showNav, setShowNav] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -44,11 +47,17 @@ const Navbar = () => {
               About
               </Link>
             </li>
-            <li>
+            {
+              session?.user ? <li onClick={()=>signOut()}>
+              <Link href="/login" className={` hover:bg-[#eef2f6f0] hover:text-blue-500 rounded-full py-2 px-3 inline-block w-full`}>
+              SignOut
+              </Link>
+            </li>:<li>
               <Link href="/login" className={` hover:bg-[#eef2f6f0] hover:text-blue-500 rounded-full py-2 px-3 inline-block w-full`}>
               Login
               </Link>
             </li>
+            }
             <li>
               <Link href="/write" className={` hover:bg-[#eef2f6f0] hover:text-blue-500 rounded-full py-2 px-3 inline-block w-full`}>
               Write
@@ -137,12 +146,19 @@ const Navbar = () => {
             </Link>
            
         </li>
-        <li  >
+        {
+          session?.user ? <li onClick={()=>signOut()} >
+          <Link href="/login" className="py-1 inline-block w-full">
+              <span className={` flex flex-row gap-1 font-semibold `}>Sign Out</span> 
+          </Link>
+         
+      </li>:<li  >
             <Link href="/login" className="py-1 inline-block w-full">
                 <span className={` flex flex-row gap-1 font-semibold `}>Login</span> 
             </Link>
            
         </li>
+        }
       </ul>
       
     </div>

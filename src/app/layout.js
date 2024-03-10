@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ThemeContextProvider } from "@/context/ThemeContext";
+import { AuthProvider } from "../Providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,20 +18,22 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ThemeContextProvider>
-          <ToastContainer />
-          <div>
-            <div className=" w-screen sticky top-0 z-50 bg-slate-200 text-black ">
-              <Navbar />
+        <AuthProvider>
+          <ThemeContextProvider>
+            <ToastContainer />
+            <div>
+              <div className=" w-screen sticky top-0 z-50 bg-slate-200 text-black ">
+                <Navbar />
+              </div>
+              <div className="flex flex-col bg-white text-black w-[100vw] min-h-[500px] overflow-x-hidden items-center ">
+                {children}
+              </div>
             </div>
-            <div className="flex flex-col bg-white text-black w-[100vw] min-h-[500px] overflow-x-hidden items-center ">
-              {children}
+            <div className=" w-screen bg-slate-200 text-black ">
+              <Footer />
             </div>
-          </div>
-          <div className=" w-screen bg-slate-200 text-black ">
-            <Footer />
-          </div>
-        </ThemeContextProvider>
+          </ThemeContextProvider>
+        </AuthProvider>
       </body>
     </html>
   );

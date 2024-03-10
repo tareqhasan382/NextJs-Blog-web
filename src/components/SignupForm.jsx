@@ -38,25 +38,25 @@ const SignupForm = () => {
     if (Object.keys(newErrors).length === 0) {
       console.log("data:",formData);
       try {
-    //      setLoading(true)
-    //    const result= await fetch('api/signup',{
-    //       method:"POST",
-    //       headers:{"Content-Type":"application/json"},body:JSON.stringify(formData)
-    //     })
-    //     console.log("result:",result)
-    //    if(result.ok){
-    //     setLoading(false)
-    //     toast.success("User created successfully")
-    //     router.push('/login', { scroll: false })
-    //    }else if(result.status===409){
-    //     setLoading(false)
-    //     toast.warning("User already exist")
-    //    }else{
-    //     setLoading(false)
-    //     toast.error("User created failed")
-    //    setFormData("")
-    //    form.reset()
-     //  }
+         setLoading(true)
+       const result= await fetch('api/signup',{
+          method:"POST",
+          headers:{"Content-Type":"application/json"},body:JSON.stringify(formData)
+        })
+        console.log("result:",result)
+       if(result.ok){
+        setLoading(false)
+        toast.success("User created successfully")
+        router.push('/login', { scroll: false })
+       }else if(result.status===409){
+        setLoading(false)
+        toast.warning("User already exist")
+       }else{
+        setLoading(false)
+        toast.error("User created failed")
+       setFormData("")
+       form.reset()
+      }
       } catch (error) {
         setLoading(false)
         toast.error("User created failed")

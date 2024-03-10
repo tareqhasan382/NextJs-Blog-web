@@ -39,19 +39,19 @@ const LoginForm = () => {
      // console.log(formData);
       try {
         
-    //    setLoading(true)
-    //     const result = await signIn( "credentials",{email:formData.email, password:formData.password,redirect:false})
-    //    setLoading(false)
+       setLoading(true)
+        const result = await signIn( "credentials",{email:formData.email, password:formData.password,redirect:false})
+       setLoading(false)
 
-    //      if(result.error){
-    //       setLoading(false)
-    //       toast.error("Invalid credentials")
-    //      }
-    //      if(result.ok){
-    //       setLoading(false)
-    //       router.replace("/profile")
-    //       toast.success("User loggedIn successfully")
-    //      }
+         if(result.error){
+          setLoading(false)
+          toast.error("Invalid credentials")
+         }
+         if(result.ok){
+          setLoading(false)
+          router.replace("/")
+          toast.success("User loggedIn successfully")
+         }
 
        
        } catch (error) {
