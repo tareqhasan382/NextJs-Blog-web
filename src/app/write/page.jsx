@@ -5,9 +5,7 @@ import PrivateRoute from '../api/PrivateRoute';
 const page = () => {
   return (
     
-   <PrivateRoute>
-     <Write/>
-   </PrivateRoute>
+    <Write/>
 
   )
  
