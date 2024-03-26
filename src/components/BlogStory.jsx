@@ -3,7 +3,7 @@ import Image from "next/image";
 const getBlogs = async () => {
   try {
     const result = await fetch("https://next-js-blog-web.vercel.app/api/getblog", {
-      cache: "no-store",
+      cache:"no-cache",
       method: "GET",
     });
     if (!result.ok) {
@@ -52,3 +52,6 @@ const BlogStory = async () => {
 
 export default BlogStory;
 
+// "Cache-Control": "no-cache, no-store, must-revalidate",
+// Pragma: "no-cache",
+// Expires: 0,
