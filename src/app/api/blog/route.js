@@ -19,13 +19,14 @@ export async function POST(req, res) {
     }
 
     await BlogModel.create({ userId, title, content, img, category });
+    //  res.setHeader("Cache-Control", "no-cache, must-revalidate");
     return NextResponse.json(
-      { message: "Blog created successfully.", success: "true" },
+      { message: "Blog created successfully.", success: true },
       { status: 201 }
     );
   } catch (error) {
     return NextResponse.json(
-      { message: "Blog created failed.", success: "false" },
+      { message: "Blog created failed.", success: false },
       { status: 500 }
     );
   }
