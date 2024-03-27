@@ -7,6 +7,7 @@ export async function GET(req, res) {
     await connectMongodb();
     const blogs = await BlogModel.find();
     // console.log("get blog data:", blogs);
+    res.setHeader("Cache-Control", "no-cache, must-revalidate");
     return NextResponse.json(
       {
         message: "Blogs retrieved successfully.",
