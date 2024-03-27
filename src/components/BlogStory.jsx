@@ -3,8 +3,10 @@ import Image from "next/image";
 const getBlogs = async () => {
   try {
     const result = await fetch("https://next-js-blog-web.vercel.app/api/getblog", {
-      cache:"no-cache",
       method: "GET",
+      next:{
+        revalidate:30
+      }
     });
     if (!result.ok) {
       throw new Error("Failed to fetch data");
