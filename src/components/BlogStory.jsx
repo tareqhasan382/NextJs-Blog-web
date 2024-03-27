@@ -4,8 +4,8 @@ const getBlogs = async () => {
   try {
     const result = await fetch("https://next-js-blog-web.vercel.app/api/getblog", {
       method: "GET",
-      next:{
-        revalidate:30
+      headers: {
+        "Cache-Control": "no-cache, must-revalidate"
       }
     });
     if (!result.ok) {
