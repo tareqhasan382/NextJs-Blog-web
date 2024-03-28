@@ -2,7 +2,9 @@ import Image from "next/image";
 import React from "react";
 import Pagination from "./Pagination";
 import Link from "next/link";
-const getBlogs = async (page) => {
+import FormateDate from "./FormateDate";
+// http://localhost:3000
+export const getBlogs = async (page) => {
   try {
     const result = await fetch(`https://next-js-blog-web.vercel.app/api/getblog?page=${page}`, {
       method: "GET",
@@ -20,6 +22,8 @@ const getBlogs = async (page) => {
 };
 const RecentPost = async ({page}) => {
   const blogs = await getBlogs(page);
+
+  //============
   const per_page_data= 3
   const hasPrev = per_page_data*(page-1) > 0
   const hasNext =per_page_data*(page-1)+per_page_data<blogs.total
@@ -41,7 +45,7 @@ const RecentPost = async ({page}) => {
               />
             </div>
             <div className=" w-full  flex flex-col justify-center  ">
-              <h1>2023-08-28 -CODING</h1>
+              <h1 className=" flex "> <FormateDate date={blog?.createdAt} />  - {blog?.category} </h1>
               <h1 className=" lg:text-xl text-xl font-bold ">{blog?.title}</h1>
               <div>
                   {blog?.content && (
@@ -75,5 +79,3 @@ const RecentPost = async ({page}) => {
 };
 
 export default RecentPost;
-
-//       className=" ProseMirror whitespace-pre-line  px-6 py-4"

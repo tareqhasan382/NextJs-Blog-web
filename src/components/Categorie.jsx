@@ -1,55 +1,46 @@
 import Image from 'next/image';
 import React from 'react';
 
-const Categorie = () => {
-  const colors=["#1ecbe1","#df20df","#601fe0","#3bc485","#d3762c"]
-  const category =[
-    {
-      _id:"1",
-      image:"https://images.pexels.com/photos/20258514/pexels-photo-20258514/free-photo-of-feeding-the-serelepe.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      name:"Fashion"
-    },
-    {
-      _id:"2",
-      image:"https://images.pexels.com/photos/20258514/pexels-photo-20258514/free-photo-of-feeding-the-serelepe.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      name:"Food"
-    },
-    {
-      _id:"3",
-      image:"https://images.pexels.com/photos/20258514/pexels-photo-20258514/free-photo-of-feeding-the-serelepe.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      name:"Style"
-    },
-    {
-      _id:"4",
-      image:"https://images.pexels.com/photos/20258514/pexels-photo-20258514/free-photo-of-feeding-the-serelepe.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      name:"Education"
-    },
-    {
-      _id:"5",
-      image:"https://images.pexels.com/photos/20258514/pexels-photo-20258514/free-photo-of-feeding-the-serelepe.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      name:"Culture"
-    },
-    {
-      _id:"6",
-      image:"https://images.pexels.com/photos/20258514/pexels-photo-20258514/free-photo-of-feeding-the-serelepe.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      name:"Travel"
-    },
-  ]
+export const getCategories = async () => {
+  try {
+    const result = await fetch(`https://next-js-blog-web.vercel.app/api/getCategory`, {
+      method: "GET",
+    });
+    if (!result.ok) {
+      throw new Error("Failed to fetch data");
+    }
+    return result.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+const Categorie =async () => {
+  const colors=["#9be8f2","#f4b2f4","#b28fff","#f5f05b","#b597f1"]
+  
+  const category =await getCategories()
   return (
     <>
-    {
-      category.map((item,index)=>(
-        <div  key={item._id} className="cursor-pointer flex lg:w-[190px] w-[150px] h-[70px] rounded-md items-center justify-center gap-2"
+    { category?.data &&
+      category?.data.map((item,index)=>(
+        <div  key={item._id} className="cursor-pointer flex px-2 h-[50px] rounded-md items-center justify-center gap-2"
       style={{backgroundColor:colors[index%colors.length]}}
         >
-            <Image
+            {
+              item?.img ? <Image
               src={item?.image}
               alt="Image"
               width={40}
               height={40}
-              className=" object-cover  h-[40px] rounded-full "
-            />
-            <h1 className=" font-medium ">{item?.name}</h1>
+              className=" object-cover  lg:h-[40px] lg:w-[40px] h-[30px] w-[30px] rounded-full "
+            />:<Image
+            src="https://res.cloudinary.com/dsybkyula/image/upload/v1700403156/Reservation/qitr5bnrzvdhf9jy1veo.jpg"
+            alt="Image"
+            width={40}
+            height={40}
+            className=" object-cover  lg:h-[40px] lg:w-[40px] h-[30px] w-[30px] rounded-full "
+          />
+            }
+            <h1 className=" lg:font-medium  font-light pr-2 ">{item?.name}</h1>
           </div>
       ))
     }
@@ -58,17 +49,3 @@ const Categorie = () => {
 }
 
 export default Categorie;
-
-/*
-<div className=" cursor-pointer flex lg:w-[190px] w-[150px] h-[70px] bg-rose-400 rounded-md items-center justify-center gap-2 ">
-            <Image
-              src="https://images.pexels.com/photos/20258514/pexels-photo-20258514/free-photo-of-feeding-the-serelepe.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              alt="Image"
-              width={40}
-              height={40}
-              className=" object-cover  h-[40px] rounded-full "
-            />
-            <h1 className=" font-medium "> Fashion</h1>
-          </div>
-
-*/

@@ -1,12 +1,16 @@
 import Categorie from "@/components/Categorie";
 import DiscoverTopic from "@/components/DiscoverTopic";
 import MostPopular from "@/components/MostPopular";
-import Pagination from "@/components/Pagination";
-import RecentPost from "@/components/RecentPost";
+// import ReactHtmlParser from "react-html-parser";
+import RecentPost, { getBlogs } from "@/components/RecentPost";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Home({ searchParams }) {
+export default async function Home({ searchParams }) {
+  const blogs = await getBlogs();
+
+  // console.log("blog:", blogs?.data?.[0]);
+  const blog = blogs?.data?.[1];
   const page = parseInt(searchParams.page) || 1;
   return (
     <div className=" px-5 max-w-[1280px] h-auto mx-auto py-10 gap-5 overflow-x-hidden ">
@@ -19,7 +23,7 @@ export default function Home({ searchParams }) {
       <div className=" flex flex-wrap justify-center items-center my-5 ">
         <div className=" lg:w-1/2 w-full  ">
           <Image
-            src="https://images.pexels.com/photos/20258514/pexels-photo-20258514/free-photo-of-feeding-the-serelepe.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+            src={blog?.img}
             alt="Image"
             width={600}
             height={200}
@@ -28,32 +32,37 @@ export default function Home({ searchParams }) {
         </div>
         <div className=" lg:w-1/2 w-full  ">
           <h1 className=" lg:text-4xl text-xl font-bold text-left ">
-            Simple ways to inspire your Inner Innovator
+            {blog?.title}
           </h1>
-          <p className=" text-justify ">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Animi odit
-            quod nostrum aperiam hic cum omnis eveniet? Asperiores praesentium
-            iste libero a sint, quae, harum, sequi itaque quibusdam inventore
-            qui? Laudantium provident ea cumque placeat odit! Ratione,
-            doloremque rerum sit sequi placeat vel! Temporibus praesentium
-            alias, rem nam repellendus tempora repudiandae laboriosam totam id
-            reiciendis blanditiis, molestiae repellat, culpa voluptatem! A odit
-            beatae cumque molestias asperiores non delectus expedita aliquam
-            natus, sint voluptatibus sit voluptate, sapiente tempore porro
-            commodi eaque mollitia! Earum animi ratione sapiente magni tempora
-            hic cupiditate quam.
-          </p>
-          <Link href="/details">
+          <div>
+            {blog?.content && (
+              <>
+                <div
+                  className="ProseMirror whitespace-pre-line px-6 py-4"
+                  style={{ whiteSpace: "pre-line" }}
+                >
+                  <div
+                    className=" ProseMirror whitespace-pre-line  px-6 py-4"
+                    style={{ whiteSpace: "pre-line" }}
+                    dangerouslySetInnerHTML={{
+                      __html: blog?.content?.substring(0, 400),
+                    }}
+                  />
+                </div>
+              </>
+            )}
+          </div>
+          <Link href={`/details/${blog._id}`}>
             <button className=" px-3 py-2 text-black font-medium bg-gray-200 hover:bg-gray-400 duration-200 rounded mt-8 ">
               Read More
             </button>
           </Link>
         </div>
       </div>
-      {/* ============categories========= */}
+      {/* ============categories=========px-3 py-1 */}
       <div>
         <h1 className=" font-bold lg:text-2xl text-xl ">Popular Categories</h1>
-        <div className=" flex flex-wrap gap-4 my-6 ">
+        <div className=" flex flex-wrap gap-4 my-4 ">
           <Categorie />
         </div>
       </div>
@@ -69,9 +78,6 @@ export default function Home({ searchParams }) {
           <p>Whats hot</p>
           <h1 className=" font-bold lg:text-2xl text-xl ">Most Popular</h1>
           <div className=" flex flex-col my-5 gap-5 ">
-            <MostPopular />
-            <MostPopular />
-            <MostPopular />
             <MostPopular />
             <DiscoverTopic />
           </div>

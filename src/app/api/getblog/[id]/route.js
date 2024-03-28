@@ -7,8 +7,8 @@ export async function GET(req, { params }) {
   // console.log("id:", id);
   try {
     await connectMongodb();
-    const blog = await BlogModel.findById(id);
-    // console.log("blog:", blog);
+    const blog = await BlogModel.findById(id).populate("userId");
+    // console.log("single blog data :", blog);
     return NextResponse.json(
       {
         message: "Blog retrieved successfully.",
