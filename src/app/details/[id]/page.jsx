@@ -5,10 +5,10 @@ import Editors from "@/components/Editors";
 import MostPopular from "@/components/MostPopular";
 import Image from "next/image";
 import user from "@/app/image/user.png"
-// http://localhost:3000
+
 const getBlog = async (id) => {
     try {
-      const result = await fetch(`http://localhost:3000/api/getblog/${id}`, {
+      const result = await fetch(`https://next-js-blog-web.vercel.app/api/getblog/${id}`, {
         method: "GET",
         headers: {
           "Cache-Control": "no-cache, must-revalidate",

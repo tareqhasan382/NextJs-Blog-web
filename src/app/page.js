@@ -5,7 +5,9 @@ import MostPopular from "@/components/MostPopular";
 import RecentPost, { getBlogs } from "@/components/RecentPost";
 import Image from "next/image";
 import Link from "next/link";
-
+//http://localhost:3000/
+//https://next-js-blog-web.vercel.app
+export const baseURL = "https://next-js-blog-web.vercel.app";
 export default async function Home({ searchParams }) {
   const blogs = await getBlogs();
 
