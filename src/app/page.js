@@ -1,11 +1,13 @@
 import Categorie from "@/components/Categorie";
 import DiscoverTopic from "@/components/DiscoverTopic";
 import MostPopular from "@/components/MostPopular";
+import Pagination from "@/components/Pagination";
 import RecentPost from "@/components/RecentPost";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Home() {
+export default function Home({ searchParams }) {
+  const page = parseInt(searchParams.page) || 1;
   return (
     <div className=" px-5 max-w-[1280px] h-auto mx-auto py-10 gap-5 overflow-x-hidden ">
       <div className=" ">
@@ -52,11 +54,6 @@ export default function Home() {
       <div>
         <h1 className=" font-bold lg:text-2xl text-xl ">Popular Categories</h1>
         <div className=" flex flex-wrap gap-4 my-6 ">
-          <Categorie title="Coding" bg="bg-blue-400" />
-          <Categorie />
-          <Categorie title="Calture" bg="bg-orange-400" />
-          <Categorie />
-          <Categorie title="Fashion" bg="bg-purple-800" />
           <Categorie />
         </div>
       </div>
@@ -65,9 +62,7 @@ export default function Home() {
         {/* ============Recent Posts Left========= */}
         <div className=" flex flex-col lg:w-3/4 gap-3 ">
           <h1 className=" font-bold lg:text-2xl text-xl ">Recent Posts</h1>
-          <RecentPost />
-          <RecentPost />
-          <RecentPost />
+          <RecentPost page={page} />
         </div>
         {/* ============Recent Posts Right========= */}
         <div className="lg:w-1/4 ">
@@ -83,14 +78,6 @@ export default function Home() {
         </div>
       </div>
       {/* ============pagination========= */}
-      <div className=" flex justify-between my-4 ">
-        <button className=" w-24 h-10 bg-red-800 hover:bg-red-600 text-white ">
-          Previous
-        </button>
-        <button className=" w-24 h-10 bg-red-800 hover:bg-red-600 text-white ">
-          Next
-        </button>
-      </div>
     </div>
   );
 }

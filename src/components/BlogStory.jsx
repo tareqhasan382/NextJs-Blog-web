@@ -1,8 +1,10 @@
 import React from "react";
 import Image from "next/image";
+// https://next-js-blog-web.vercel.app
+// http://localhost:3000
 const getBlogs = async () => {
   try {
-    const result = await fetch("https://next-js-blog-web.vercel.app/api/getblog", {
+    const result = await fetch("http://localhost:3000/api/getblog", {
       method: "GET",
       headers: {
         "Cache-Control": "no-cache, must-revalidate"
@@ -29,11 +31,13 @@ const BlogStory = async () => {
               <h3>{blog?.title} </h3>
               <div className=" w-full bg-slate-100 flex flex-wrap ">
                 <span className=" text-6xl font-bold ">Story</span>
+                <div className="  h-10 w-full bg-red-200 overflow-hidden ">
                 <div
-                  className="ProseMirror whitespace-pre-line  px-6 py-4"
+                  className=" ProseMirror whitespace-pre-line  px-6 py-4"
                   style={{ whiteSpace: "pre-line" }}
                   dangerouslySetInnerHTML={{ __html: blog?.content }}
                 />
+                </div>
               </div>
               <div>
                 <Image

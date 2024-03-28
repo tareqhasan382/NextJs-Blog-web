@@ -119,3 +119,9 @@ body{
   .heading3 {
     font-size: 15px;
   }
+
+
+  .button:disabled{
+    border-color: rgba(220, 20, 60, 0.473);
+    cursor: not-allowed;
+  }

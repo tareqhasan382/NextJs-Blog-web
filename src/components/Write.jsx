@@ -86,6 +86,8 @@ const Write = () => {
         setContentError(false);
       }
       console.log("data:",data)
+      // https://next-js-blog-web.vercel.app
+      // http://localhost:3000
       const response = await fetch("https://next-js-blog-web.vercel.app/api/blog", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -98,8 +100,9 @@ const Write = () => {
         setContent("");
         setTitle("");
         toast.success("Blog Upload Successfully");
-        router.push("/");
+        router.push("/blog");
       } else {
+        setLoading(false);
         toast.error("Blog Upload Failed");
       }
     } catch (error) {

@@ -19,7 +19,7 @@ export async function POST(req, res) {
     }
 
     await BlogModel.create({ userId, title, content, img, category });
-    res.setHeader("Cache-Control", "no-cache, must-revalidate");
+    // res.setHeader("Cache-Control", "no-cache, must-revalidate");
     return NextResponse.json(
       { message: "Blog created successfully.", success: true },
       { status: 201 }
