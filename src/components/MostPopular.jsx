@@ -1,9 +1,10 @@
 import React from 'react';
 import FormateDate from './FormateDate';
 import Link from 'next/link';
+import { baseURL } from '@/app/page';
 export const getBlogs = async (page) => {
   try {
-    const result = await fetch(`https://next-js-blog-web.vercel.app/api/mostPopular`, {
+    const result = await fetch(`${baseURL}/api/mostPopular`, {
       method: "GET",
       headers: {
         "Cache-Control": "no-cache, must-revalidate",

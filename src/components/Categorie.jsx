@@ -1,9 +1,10 @@
+import { baseURL } from '@/app/page';
 import Image from 'next/image';
 import React from 'react';
 
 export const getCategories = async () => {
   try {
-    const result = await fetch(`https://next-js-blog-web.vercel.app/api/getCategory`, {
+    const result = await fetch(`${baseURL}/api/getCategory`, {
       method: "GET",
     });
     if (!result.ok) {

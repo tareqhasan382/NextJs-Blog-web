@@ -5,10 +5,10 @@ import Editors from "@/components/Editors";
 import MostPopular from "@/components/MostPopular";
 import Image from "next/image";
 import user from "@/app/image/user.png"
-
+import { baseURL } from "@/app/page";
 const getBlog = async (id) => {
     try {
-      const result = await fetch(`https://next-js-blog-web.vercel.app/api/getblog/${id}`, {
+      const result = await fetch(`${baseURL}/api/getblog/${id}`, {
         method: "GET",
         headers: {
           "Cache-Control": "no-cache, must-revalidate",
@@ -92,10 +92,7 @@ const year = createdAt.getFullYear();
             <p>Whats hot</p>
             <h1 className=" font-bold lg:text-2xl text-xl  ">Most Popular</h1>
             <div className=" flex flex-col my-5 gap-5 ">
-              <MostPopular title="Calture" bg="bg-orange-400" />
               <MostPopular />
-              <MostPopular title="Coding" bg="bg-blue-400" />
-             
               {/* <Discover By Topic /> */}
               <DiscoverTopic/>
               <Editors/>

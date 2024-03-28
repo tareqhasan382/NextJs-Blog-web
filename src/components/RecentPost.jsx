@@ -3,10 +3,11 @@ import React from "react";
 import Pagination from "./Pagination";
 import Link from "next/link";
 import FormateDate from "./FormateDate";
+import { baseURL } from "@/app/page";
 // http://localhost:3000
 export const getBlogs = async (page) => {
   try {
-    const result = await fetch(`https://next-js-blog-web.vercel.app/api/getblog?page=${page}`, {
+    const result = await fetch(`${baseURL}/api/getblog?page=${page}`, {
       method: "GET",
       headers: {
         "Cache-Control": "no-cache, must-revalidate",

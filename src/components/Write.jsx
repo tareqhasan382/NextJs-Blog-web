@@ -7,6 +7,7 @@ import TipTap from "./TipTap";
 import { useSession } from "next-auth/react";
 import axios from "axios";
 import { Bounce, toast } from "react-toastify";
+import { baseURL } from "@/app/page";
 const Write = () => {
   const router = useRouter();
   const { data: session } = useSession();
@@ -88,7 +89,7 @@ const Write = () => {
       console.log("data:",data)
       // https://next-js-blog-web.vercel.app
       // http://localhost:3000
-      const response = await fetch("https://next-js-blog-web.vercel.app/api/blog", {
+      const response = await fetch(`${baseURL}/api/blog`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
