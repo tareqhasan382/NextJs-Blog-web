@@ -4,14 +4,12 @@ import Pagination from "./Pagination";
 import Link from "next/link";
 import FormateDate from "./FormateDate";
 import { baseURL } from "@/app/page";
-// http://localhost:3000
-export const getBlogs = async (page,limit) => {
+
+export const getCatByBlogs = async (page,cat,limit) => {
   try {
-    const result = await fetch(`${baseURL}/api/getblog?page=${page}&limit=${limit || ""}`, {
+    const result = await fetch(`${baseURL}/api/getblog?page=${page}&limit=${limit || ""}&category=${cat || ""}`, {
       method: "GET",
-      headers: {
-        "Cache-Control": "no-cache, must-revalidate",
-      },
+      cache:"no-store"
     });
     if (!result.ok) {
       throw new Error("Failed to fetch data");
@@ -21,16 +19,17 @@ export const getBlogs = async (page,limit) => {
     console.log(error);
   }
 };
-const RecentPost = async ({page}) => {
-  const blogs = await getBlogs(page);
+const CardList = async ({page,cat}) => {
+    const limit = 4
+  const blogs = await getCatByBlogs(page,cat,limit);
 
-  //============
-  const per_page_data= 3
+  const per_page_data= limit
   const hasPrev = per_page_data*(page-1) > 0
   const hasNext =per_page_data*(page-1)+per_page_data<blogs?.total
+ 
   return (
     <div>
-      {blogs?.data &&
+      {blogs?.data &&  blogs?.total  > 0 ?
         blogs?.data.map((blog) => (
           <div
             key={blog._id}
@@ -71,7 +70,9 @@ const RecentPost = async ({page}) => {
           </Link>
             </div>
           </div>
-        ))}
+        )) :<div>
+          <h1> Data is Empty! </h1>
+        </div> }
         <div>
         <Pagination page={page} hasNext={hasNext} hasPrev={hasPrev} />
       </div>
@@ -79,4 +80,4 @@ const RecentPost = async ({page}) => {
   );
 };
 
-export default RecentPost;
+export default CardList;

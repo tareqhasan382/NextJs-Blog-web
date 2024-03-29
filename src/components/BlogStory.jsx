@@ -1,57 +1,31 @@
 import React from "react";
-import Image from "next/image";
-// https://next-js-blog-web.vercel.app
-// http://localhost:3000
-const getBlogs = async () => {
-  try {
-    const result = await fetch("http://localhost:3000/api/getblog", {
-      method: "GET",
-      headers: {
-        "Cache-Control": "no-cache, must-revalidate"
-      }
-    });
-    if (!result.ok) {
-      throw new Error("Failed to fetch data");
-    }
-    return result.json();
-  } catch (error) {
-    console.log(error);
-  }
-};
-const BlogStory = async () => {
-  const blogs = await getBlogs();
-//  console.log("Blogs:", blogs?.data);
+import MostPopular from "./MostPopular";
+import DiscoverTopic from "./DiscoverTopic";
+import CardList from "./CardList";
+
+const BlogStory = async ({ searchParams }) => {
+  const page = parseInt(searchParams.page) || 1;
+  const {cat}= searchParams
   return (
     <div className=" px-5 max-w-[1280px] h-auto mx-auto py-10 gap-5 overflow-x-hidden ">
-      <h1>Blogs</h1>
-      {blogs?.data &&
-        blogs.data.map((blog) => (
-          <div key={blog._id} className=" w-full h-full ">
-            <div>
-              <h3>{blog?.title} </h3>
-              <div className=" w-full bg-slate-100 flex flex-wrap ">
-                <span className=" text-6xl font-bold ">Story</span>
-                <div className="  h-10 w-full bg-red-200 overflow-hidden ">
-                <div
-                  className=" ProseMirror whitespace-pre-line  px-6 py-4"
-                  style={{ whiteSpace: "pre-line" }}
-                  dangerouslySetInnerHTML={{ __html: blog?.content }}
-                />
-                </div>
-              </div>
-              <div>
-                <Image
-                  src={blog?.img}
-                  width={300}
-                  height={400}
-                  alt="Blog Image"
-                  layout="lazy"
-                  
-                />
-              </div>
-            </div>
+     <h1 className=" flex justify-center items-center w-full h-10 bg-orange-400 text-write text-xl font-bold text-center text-white ">{cat} Blog</h1>
+     <div className=" flex lg:flex-row flex-col gap-5  ">
+        {/* ============Recent Posts Left========= */}
+        <div className=" flex flex-col lg:w-3/4 gap-3 ">
+          <h1 className=" font-bold lg:text-2xl text-xl ">Recent Posts</h1>
+          {/* <RecentPost page={page} /> */}
+          <CardList page={page} cat={cat} />
+        </div>
+        {/* ============Recent Posts Right========= */}
+        <div className="lg:w-1/4 ">
+          <p>Whats hot</p>
+          <h1 className=" font-bold lg:text-2xl text-xl ">Most Popular</h1>
+          <div className=" flex flex-col my-5 gap-5 ">
+            <MostPopular />
+            <DiscoverTopic />
           </div>
-        ))}
+        </div>
+      </div>
     </div>
   );
 };

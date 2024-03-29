@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import parse from "html-react-parser";
@@ -8,17 +8,30 @@ import { useSession } from "next-auth/react";
 import axios from "axios";
 import { Bounce, toast } from "react-toastify";
 import { baseURL } from "@/app/page";
+import { getCategories } from "./Categorie";
 const Write = () => {
+  const [cat, setCat] = useState([]);
+  //=====
   const router = useRouter();
   const { data: session } = useSession();
   const [loading, setLoading] = useState(false);
   const [titleError, setTitleError] = useState(false);
+  const [categoryError, setCategoryError] = useState(false);
   const [contentError, setContentError] = useState(false);
   const [selectImage, setSelectImage] = useState(null);
   const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
+  useEffect(() => {
+    const fetcCatData = async () => {
+      const catData = await getCategories();
+      setCat(catData?.data || []);
+    };
 
+    fetcCatData();
+  }, []);
+ // console.log("cat:", cat);
   const handleImageUpload = async (event) => {
     event.preventDefault();
     const file = event.target.files[0];
@@ -34,6 +47,13 @@ const Write = () => {
     setTitle(value);
     if (value.trim() === "") {
       setTitleError(true);
+    }
+  };
+  const handleCategory = (e) => {
+    const value = e.target.value;
+    setCategory(value);
+    if (value.trim() === "") {
+      setCategoryError(true);
     }
   };
   const handleSubmit = async (event) => {
@@ -61,14 +81,14 @@ const Write = () => {
       formData
     );
     const imageUrl = response?.data?.secure_url;
-   // console.log("imgUrl:",imageUrl)
+    // console.log("imgUrl:",imageUrl)
     setImage(imageUrl);
     const data = {
       img: response?.data?.secure_url,
       userId: session?.user?._id,
       content: content,
       title: title,
-      category: "Story",
+      category: category,
     };
 
     try {
@@ -86,7 +106,7 @@ const Write = () => {
       } else {
         setContentError(false);
       }
-      console.log("data:",data)
+      console.log("data:", data);
       // https://next-js-blog-web.vercel.app
       // http://localhost:3000
       const response = await fetch(`${baseURL}/api/blog`, {
@@ -111,7 +131,7 @@ const Write = () => {
       toast.error("Blog Upload Failed");
     }
   };
-
+ // console.log("category:", category);
   // const handleSubmit = async(event) => {
   //   setLoading(true);
 
@@ -191,6 +211,27 @@ const Write = () => {
               <span className="text-sm text-red-500 ">Story is required</span>
             )}
           </div>
+          <div className="flex flex-col w-full px-4 ">
+            <label className="mb-2 text-left">Select Category</label>
+            <select
+              id="gender"
+              value={category}
+              onChange={handleCategory}
+              className="p-2 py-2 border-gray-300 border-[1px] rounded-lg w-full mb-4 outline-none focus:border-gray-600 text-black"
+            >
+              <option value="">Select Category...</option>
+              {cat?.map((item) => (
+                <option key={item?._id} value={item?.name}>
+                  {item?.name}
+                </option>
+              ))}
+            </select>
+            {categoryError && (
+              <span className="text-sm text-red-500 ">
+                Category field is required
+              </span>
+            )}
+          </div>
           <div className=" flex flex-col gap-5 my-3 cursor-pointer ">
             {/* <LuPlusCircle size={30} onClick={()=>setOpen(!open)}  /> */}
             <input type="file" accept="image/*" onChange={handleImageUpload} />
@@ -198,9 +239,13 @@ const Write = () => {
           <button
             type="submit"
             disabled={loading}
-            className={`${loading ? " cursor-not-allowed w-36 py-3 bg-blue-500 text-white font-semibold rounded-md my-3":"w-36 py-3 bg-blue-500 text-white font-semibold rounded-md my-3"}`}
+            className={`${
+              loading
+                ? " cursor-not-allowed w-36 py-3 bg-black text-white font-semibold rounded-md my-3"
+                : "w-36 py-3 bg-gray-900 text-white font-semibold rounded-md my-3"
+            }`}
           >
-            {loading? "Loading":"Submit"}
+            {loading ? "Loading" : "Submit"}
           </button>
         </form>
       </div>

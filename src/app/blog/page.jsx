@@ -1,10 +1,10 @@
 import BlogStory from '@/components/BlogStory';
 import React from 'react';
 
-const page = () => {
+const page = ({ searchParams }) => {
   return (
-    <div>
-      <BlogStory/>
+    <div className=' w-full '>
+      <BlogStory searchParams={searchParams} />
     </div>
   );
 }
