@@ -29,7 +29,7 @@ const Comment = () => {
         />
         <button
           type="submit"
-          className=" w-28 lg:ml-2 px-2 py-2 rounded-lg bg-blue-500 text-white "
+          className=" w-28 lg:ml-2 px-2 py-2 rounded-lg bg-gray-900 text-white "
         >
           Submit
         </button>
