@@ -85,7 +85,7 @@ const year = createdAt.getFullYear();
             {/* ===========Comment========= */}
         <div className=" w-full my-5 ">
             <h1 className="lg:text-4xl text-xl font-bold">Comments</h1>
-            <Comment/> 
+            <Comment blogId={blog?.data?._id} /> 
             
            
         </div>
