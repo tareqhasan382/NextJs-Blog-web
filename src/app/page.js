@@ -2,7 +2,9 @@ import Categorie from "@/components/Categorie";
 import DiscoverTopic from "@/components/DiscoverTopic";
 import MostPopular from "@/components/MostPopular";
 // import ReactHtmlParser from "react-html-parser";
-import RecentPost, { getBlogs } from "@/components/RecentPost";
+import RecentPost from "@/components/RecentPost";
+import { getBlogs } from "@/components/getBlogs";
+
 import Image from "next/image";
 import Link from "next/link";
 

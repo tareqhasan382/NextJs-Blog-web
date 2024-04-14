@@ -1,28 +1,23 @@
+"use client"
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Pagination from "./Pagination";
 import Link from "next/link";
 import FormateDate from "./FormateDate";
-import { baseURL } from "@/app/page";
+import { getBlogs } from "./getBlogs";
 // http://localhost:3000
-export const getBlogs = async (page,limit) => {
-  try {
-    const result = await fetch(`${baseURL}/api/getblog?page=${page}&limit=${limit || ""}`, {
-      method: "GET",
-      headers: {
-        "Cache-Control": "no-cache, must-revalidate",
-      },
-    });
-    if (!result.ok) {
-      throw new Error("Failed to fetch data");
+
+const RecentPost = ({page}) => {
+  const [blogs,setBlogs]=useState([])
+  useEffect(()=>{
+    const blogs = async ()=>{
+      const blogs = await getBlogs(page);
+     // console.log("blogs:",blogs)
+      setBlogs(blogs)
     }
-    return result.json();
-  } catch (error) {
-    console.log(error);
-  }
-};
-const RecentPost = async ({page}) => {
-  const blogs = await getBlogs(page);
+    blogs();
+  },[page])
+  
 
   //============
   const per_page_data= 3

@@ -6,6 +6,7 @@ import MostPopular from "@/components/MostPopular";
 import Image from "next/image";
 import user from "@/app/image/user.png"
 import { baseURL } from "@/app/page";
+
 const getBlog = async (id) => {
     try {
       const result = await fetch(`${baseURL}/api/getblog/${id}`, {
@@ -24,6 +25,7 @@ const getBlog = async (id) => {
   };
 
 const DetailsPage = async({ params: { id } }) => {
+  
 const blog = await getBlog(id)
 const createdAt = new Date(blog?.data.createdAt);
 const day = createdAt.getDate();
@@ -83,7 +85,8 @@ const year = createdAt.getFullYear();
             {/* ===========Comment========= */}
         <div className=" w-full my-5 ">
             <h1 className="lg:text-4xl text-xl font-bold">Comments</h1>
-           <Comment/>
+            <Comment/> 
+            
            
         </div>
           </div>
