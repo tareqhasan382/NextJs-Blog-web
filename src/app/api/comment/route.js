@@ -5,9 +5,9 @@ import CommentModel from "../../../../lib/models/CommentModel";
 export async function POST(req, res) {
   connectMongodb();
   try {
-    const { blogId, comment } = await req.json();
+    const { blogId, userId, comment } = await req.json();
     // console.log("data:", comment);
-    if (!blogId || !comment) {
+    if (!blogId || !userId || !comment) {
       return NextResponse.json(
         {
           message: "Comment failed. Please provide all required fields.",
@@ -17,7 +17,7 @@ export async function POST(req, res) {
       );
     }
 
-    await CommentModel.create({ blogId, comment });
+    await CommentModel.create({ blogId, userId, comment });
 
     return NextResponse.json(
       { message: "Comment successfully.", success: true },

@@ -7,7 +7,7 @@ export async function GET(req, { params }) {
   // console.log("id:", id);
   try {
     await connectMongodb();
-    const comment = await CommentModel.find({ blogId: id });
+    const comment = await CommentModel.find({ blogId: id }).populate("userId");
     // console.log(" data :", comment);
     return NextResponse.json(
       {

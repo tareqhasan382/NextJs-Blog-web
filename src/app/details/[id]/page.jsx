@@ -31,7 +31,8 @@ const createdAt = new Date(blog?.data.createdAt);
 const day = createdAt.getDate();
 const month = createdAt.toLocaleString('default', { month: 'long' });
 const year = createdAt.getFullYear();
- //const blog= null
+
+
   return (
     <div className=" px-5 max-w-[1280px] h-auto mx-auto py-10 gap-5 overflow-x-hidden ">
       {/* ===========header========= */}

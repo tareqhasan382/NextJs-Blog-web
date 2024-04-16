@@ -2,12 +2,21 @@
 import { baseURL } from "@/app/page";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
 import FormateDate from "./FormateDate";
-// blogId, comment
+import useSWR from 'swr';
+const fetcher = async(url)=>{
+  const data= await fetch(url);
+  if (!data.ok) {
+    throw new Error("Failed to fetch data");
+  }
+ return data.json();
+
+}
+
 const Comment = ({ blogId }) => {
-  const [comments, setComments] = useState([]);
+  const { data, mutate,isLoading } = useSWR(`${baseURL}/api/getComment/${blogId}`, fetcher)
   const { data: session } = useSession();
   const [comment, setComment] = useState("");
 
@@ -18,6 +27,7 @@ const Comment = ({ blogId }) => {
     e.preventDefault();
     const data = {
       blogId: blogId,
+      userId:session?.user?._id,
       comment: comment,
     };
     try {
@@ -29,6 +39,7 @@ const Comment = ({ blogId }) => {
       if (response.ok) {
         setComment("");
         toast.success("Comment Successfully");
+        mutate();
       } else {
         
         toast.error("Comment Failed");
@@ -39,32 +50,8 @@ const Comment = ({ blogId }) => {
     }
   };
 
-  useEffect(() => {
-    const getComment = async () => {
-      try {
-        const result = await fetch(`${baseURL}/api/getComment/${blogId}`, {
-          method: "GET",
-          headers: {
-            "Cache-Control": "no-cache, must-revalidate",
-          },
-        });
+  
 
-        if (!result.ok) {
-          throw new Error("Failed to fetch data");
-        }
-
-        const data = await result.json();
-      
-        setComments(data?.data);
-      } catch (error) {
-        console.error("Error fetching comments:", error);
-      }
-    };
-
-    getComment();
-  }, [blogId]);
-
-  // console.log("data:", comments);
   return (
     <div className=" my-3 ">
       <form onSubmit={handleSubmit} className=" flex flex-col ">
@@ -86,8 +73,8 @@ const Comment = ({ blogId }) => {
         )}
       </form>
       <div>
-        { comments.length > 0 &&
-          comments.map((item)=>(
+        { !isLoading && data?.data.length > 0 &&
+          data?.data.map((item)=>(
             <div key={item?._id}>
         <div className=" flex flex-row gap-5 items-center my-4 ">
           <Image
@@ -98,12 +85,12 @@ const Comment = ({ blogId }) => {
             className=" object-cover lg:h-[40px]  h-[40px] rounded-full "
           />
           <div>
-            <h3 className=" font-semibold ">Name</h3>
+            <h3 className=" font-semibold ">{item?.userId?.name}</h3>
             <p><FormateDate date={item?.createdAt} /> </p>
           </div>
         </div>
         <p>{item?.comment}</p>
-        {/* <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> */}
+       
       </div>
           ))
         }
